@@ -3,3 +3,24 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.App-header {
+  position: absolute;
+  top: 10px;
+  right: 50px;
+}
+
+.App-header h2 {
+  color: #006699;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 6em;
+  line-height: 0.5;
+}
+
+.App-intro {
+  color: #004466;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.5em;
+  font-style: italic;
+  line-height: 0.5;
+}
