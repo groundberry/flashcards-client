@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import LoginButton from './LoginButton';
 import './App.css';
 
 class App extends Component {
@@ -11,6 +12,9 @@ class App extends Component {
         <p className="App-intro">
           An app to learn any subject through spaced repetition.
         </p>
+        <div className="App-buttons">
+          <LoginButton />
+        </div>
       </div>
     );
   }

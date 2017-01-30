@@ -1,0 +1,14 @@
+.LoginButton {
+  background-color: #0077b3;
+  border-radius: 5px;
+  border-style: none;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1.25em;
+  text-decoration: none;
+}
+
+.LoginButton:hover {
+  background-color: #0099e6;
+  color: #fff;
+}
