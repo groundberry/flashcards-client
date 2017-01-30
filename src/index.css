@@ -3,3 +3,26 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.tags-panel {
+  width: 30%;
+}
+
+.tags-header {
+  color: #004466;
+  padding-left: 40px;
+
+}
+
+.tag-name {
+  color: #004466;
+  display: block;
+  line-height: 3;
+  padding-left: 40px;
+  text-decoration: none;
+}
+
+.tag-name:hover, .tag-name:active {
+  background: #0077b3;
+  color: white;
+}
