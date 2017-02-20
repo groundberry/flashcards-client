@@ -1,5 +1,45 @@
+html {
+  height: 100%;
+}
+
 body {
+  color: #004466;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.625em;
+  height: 100%;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  position: relative;
+}
+
+@media (min-width: 480px) {
+  body {
+    font-size: 0.85em;
+  }
+}
+
+@media (min-width: 960px) {
+  body {
+    font-size: 1em;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #0077b3;
+  font-family: 'Varela Round', sans-serif;
+}
+
+#bg {
+  background-attachment: fixed;
+  background-image: url(../public/img/background.jpg);
+  background-position: 50% 0%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.25;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
 }

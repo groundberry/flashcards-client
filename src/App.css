@@ -1,4 +1,19 @@
+.App-header {
+  text-align: center;
+}
+
+.App-title {
+  font-size: 6em;
+  margin: 0;
+  padding: 150px 0 25px;
+}
+
+.App-intro {
+  font-size: 1.5em;
+  font-style: italic;
+}
+
 .App-buttons {
-  margin: 100px auto 0;
+  padding: 100px 0;
   text-align: center;
 }
