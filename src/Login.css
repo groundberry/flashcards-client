@@ -1,0 +1,19 @@
+.Login-header {
+  text-align: center;
+}
+
+.Login-title {
+  font-size: 6em;
+  margin: 0;
+  padding: 150px 0 25px;
+}
+
+.Login-intro {
+  font-size: 1.5em;
+  font-style: italic;
+}
+
+.Login-buttons {
+  padding: 100px 0;
+  text-align: center;
+}

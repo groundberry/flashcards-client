@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
-import LoginButton from './LoginButton';
+import { getQueryParams } from './utils';
+import Login from './Login';
+import Main from './Main';
 import './App.css';
 
 class App extends Component {
+  isLoggedIn() {
+    const params = getQueryParams();
+    return !!params.token;
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <h2 className="App-title">
-            Flashcards
-          </h2>
-          <p className="App-intro">
-            An app to learn any subject through spaced repetition.
-          </p>
-        </div>
-        <div className="App-buttons">
-          <LoginButton />
-        </div>
+        {this.isLoggedIn()
+          ? <Main />
+          : <Login />
+        }
       </div>
     );
   }
