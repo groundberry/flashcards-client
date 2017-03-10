@@ -22,18 +22,15 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="Sidebar container">
         <div className="row">
-          <div className="Sidebar col-xs-4">
-
-            <button className="select btn btn-primary col-sm-8 col-xs-12 col-sm-offset-2" onClick={this.handleClick}>My tags
-            </button>
-            <div className=" col-sm-8 col-xs-12 col-sm-offset-2">
-              {this.state.isToggleOn ? '' : <Tags />}
-            </div>
-
-            <button className="select btn btn-primary col-sm-8 col-xs-12 col-sm-offset-2">Create new</button>
+          <button className="Sidebar-button btn btn-primary col-sm-8 col-sm-offset-2" onClick={this.handleClick}>My tags
+          </button>
+          <div className="col-sm-8 col-xs-12 col-sm-offset-2">
+            {this.state.isToggleOn ? '' : <Tags />}
           </div>
+
+          <button className="Sidebar-button btn btn-primary col-sm-8 col-sm-offset-2">Create new</button>
         </div>
       </div>
     );

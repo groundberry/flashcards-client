@@ -1,13 +1,9 @@
 .Sidebar {
-  background-color: #fff;
-  margin-bottom: -100%;
-  padding-bottom: 100%;
+  background-color: #f8f8f8;
+  border-right: 1px solid #e7e7e7;
+  flex: 1;
 }
 
-.container {
-  margin-left: 0;
-}
-
-.select {
+.Sidebar-button {
   margin-top: 30px;
 }

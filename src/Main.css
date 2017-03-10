@@ -1,0 +1,11 @@
+.Main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.Main-content {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
