@@ -1,0 +1,13 @@
+.Tags-list {
+  font-size: 1.5em;
+  list-style: none;
+  margin-top: 30px;
+}
+
+.Tags-link {
+  cursor: pointer;
+}
+
+.Tags-link:hover {
+  text-shadow: 50%;
+}
