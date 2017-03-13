@@ -5,16 +5,25 @@ import Main from './Main';
 import './App.css';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {token: null};
+  }
+
   isLoggedIn() {
+    return !!this.state.token;
+  }
+
+  componentWillMount() {
     const params = getQueryParams();
-    return !!params.token;
+    this.setState({token: params.token});
   }
 
   render() {
     return (
       <div className="App">
         {this.isLoggedIn()
-          ? <Main />
+          ? <Main token={this.state.token} />
           : <Login />
         }
       </div>

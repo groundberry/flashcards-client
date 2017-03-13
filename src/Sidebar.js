@@ -6,28 +6,14 @@ import './Tags.css';
 
 class Sidebar extends Component {
 
-  constructor(props) {
-   super(props);
-   this.state = {isToggleOn: true};
-
-   // This binding is necessary to make `this` work in the callback
-   this.handleClick = this.handleClick.bind(this);
- }
-
- handleClick() {
-   this.setState(prevState => ({
-     isToggleOn: !prevState.isToggleOn
-   }));
- }
-
   render() {
     return (
       <div className="Sidebar container">
         <div className="row">
-          <button className="Sidebar-button btn btn-primary col-sm-8 col-sm-offset-2" onClick={this.handleClick}>My tags
-          </button>
+          <h2 className="col-sm-8 col-sm-offset-2">My tags
+          </h2>
           <div className="col-sm-8 col-xs-12 col-sm-offset-2">
-            {this.state.isToggleOn ? '' : <Tags />}
+            <Tags tags={this.props.tags}/>
           </div>
 
           <button className="Sidebar-button btn btn-primary col-sm-8 col-sm-offset-2">Create new</button>

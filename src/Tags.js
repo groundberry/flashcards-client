@@ -4,14 +4,26 @@ import './index.css';
 
 class Tags extends Component {
 
+renderTags() {
+  if (this.props.tags == null) {
+    return 'Loading...';
+  }
+
+  return (
+    <ul className="Tags--list">
+      {this.props.tags.map((tag, index) =>
+        <li className="Tags--tag" key={index}>
+          {tag.name}
+        </li>
+      )}
+    </ul>
+  );
+}
+
   render() {
     return (
       <div className="Tags">
-        <ul className="Tags-list col-xs-12">
-          <li><a className="Tags-link">Tag 1</a></li>
-          <li><a className="Tags-link">Tag 2</a></li>
-          <li><a className="Tags-link">Tag 3</a></li>
-        </ul>
+        {this.renderTags()}
       </div>
     );
   }
