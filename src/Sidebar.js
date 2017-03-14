@@ -14,7 +14,10 @@ class Sidebar extends Component {
             My tags
           </h2>
           <div className="col-sm-8 col-xs-12 col-sm-offset-2">
-            <Tags tags={this.props.tags}/>
+            <Tags
+              tags={this.props.tags}
+              onClickTag={this.props.onClickTag}
+            />
           </div>
 
           <button className="Sidebar-button btn btn-primary col-sm-8 col-sm-offset-2">
