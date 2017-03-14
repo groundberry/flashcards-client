@@ -10,13 +10,16 @@ class Sidebar extends Component {
     return (
       <div className="Sidebar container">
         <div className="row">
-          <h2 className="col-sm-8 col-sm-offset-2">My tags
+          <h2 className="col-sm-8 col-sm-offset-2">
+            My tags
           </h2>
           <div className="col-sm-8 col-xs-12 col-sm-offset-2">
             <Tags tags={this.props.tags}/>
           </div>
 
-          <button className="Sidebar-button btn btn-primary col-sm-8 col-sm-offset-2">Create new</button>
+          <button className="Sidebar-button btn btn-primary col-sm-8 col-sm-offset-2">
+            Create new
+          </button>
         </div>
       </div>
     );
