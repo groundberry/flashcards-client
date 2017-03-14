@@ -1,0 +1,12 @@
+.Flashcards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 3;
+}
+
+.Flashcards-placeholder {
+  background-color: #f7f7f7;
+  width: 480px;
+  height: 240px;
+}

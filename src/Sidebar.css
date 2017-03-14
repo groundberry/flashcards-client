@@ -1,0 +1,9 @@
+.Sidebar {
+  background-color: #f8f8f8;
+  border-right: 1px solid #e7e7e7;
+  flex: 1;
+}
+
+.Sidebar-button {
+  margin-top: 30px;
+}
