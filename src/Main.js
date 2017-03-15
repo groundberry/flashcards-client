@@ -35,25 +35,27 @@ class Main extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    console.log(nextState.selectedTag);
-    // TODO: make request for flashcards with selected tag
     const { token } = this.props;
-    const { selectedTag } = this.state;
-    const url = `https://flashcards-server.herokuapp.com/tags/${selectedTag}/flashcards?token=${token}`;
+    const currentTag = this.state.selectedTag;
+    const nextTag = nextState.selectedTag;
 
-    if (this.state.selectedTag !== null) {
-      fetch(url)
-        .then(response => {
-          return response.json();
-        })
-        .then(flashcards => {
-          this.setState({ flashcards })
-        });
+    if (currentTag === nextTag || nextTag == null) {
+      return;
     }
+
+    const url = `https://flashcards-server.herokuapp.com/tags/${nextTag}/flashcards?token=${token}`;
+
+    fetch(url)
+      .then(response => {
+        return response.json();
+      })
+      .then(flashcards => {
+        this.setState({ flashcards })
+      });
   }
 
   render() {
-    const { tags } = this.state;
+    const { tags, selectedTag, flashcards } = this.state;
 
     return (
       <div className="Main">
@@ -63,7 +65,10 @@ class Main extends Component {
             tags={tags}
             onClickTag={this.handleClickTag}
           />
-          <Flashcards />
+          <Flashcards
+            tag={selectedTag}
+            flashcards={flashcards}
+          />
         </main>
       </div>
     );

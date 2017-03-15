@@ -17,6 +17,7 @@ class Sidebar extends Component {
             <Tags
               tags={this.props.tags}
               onClickTag={this.props.onClickTag}
+              flashcards={this.props.flashcards}
             />
           </div>
 
