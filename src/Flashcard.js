@@ -19,13 +19,21 @@ class Flashcard extends Component {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    const currentFlashcardId = this.props.flashcard.id;
+    const prevFlashCardId = prevProps.flashcard.id;
+
+    if (currentFlashcardId !== prevFlashCardId) {
+      this.setState({ showAnswer: false })
+    }
+  }
+
   render() {
     const { flashcard } = this.props;
     const { showAnswer } = this.state;
 
     return (
-      <a className="Flashcard well"
-        href="#"
+      <div className="Flashcard well"
         onClick={this.handleClick}
       >
         {!showAnswer ?
@@ -36,7 +44,7 @@ class Flashcard extends Component {
             {flashcard.answer}
           </span>
         }
-      </a>
+      </div>
     );
   }
 }

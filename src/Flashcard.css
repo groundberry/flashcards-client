@@ -1,6 +1,6 @@
-
 .Flashcard {
   background-color: #f7f7f7;
+  cursor: pointer;
   width: 480px;
   height: 260px;
   display: flex;

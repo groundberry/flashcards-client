@@ -53,16 +53,16 @@ class Main extends Component {
       });
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  componentDidUpdate(prevProps, prevState) {
     const { token } = this.props;
     const currentTag = this.state.selectedTag;
-    const nextTag = nextState.selectedTag;
+    const prevTag = prevState.selectedTag;
 
-    if (currentTag === nextTag || nextTag == null) {
+    if (currentTag === prevTag || currentTag == null) {
       return;
     }
 
-    const url = `https://flashcards-server.herokuapp.com/tags/${nextTag}/flashcards?token=${token}`;
+    const url = `https://flashcards-server.herokuapp.com/tags/${currentTag}/flashcards?token=${token}`;
 
     fetch(url)
       .then(response => {
