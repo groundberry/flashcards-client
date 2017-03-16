@@ -1,0 +1,15 @@
+
+.Flashcard {
+  background-color: #f7f7f7;
+  width: 480px;
+  height: 260px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+}
+
+.Flashcard-question,
+.Flashcard-answer {
+  font-size: 1.7em;
+}

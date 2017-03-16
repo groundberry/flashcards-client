@@ -12,15 +12,34 @@ class Flashcards extends Component {
       return 'Loading...';
     }
 
+    const {
+      flashcards,
+      selectedFlashcard,
+      onClickPreviousFlashcard,
+      onClickNextFlashcard
+     } = this.props;
+    const currentFlashcard = flashcards[selectedFlashcard];
+
     return (
-      <ul className="Flashcards--list">
-        {this.props.flashcards.map((flashcard, index) =>
-          <Flashcard
-            key={index}
-            flashcard={flashcard}
-          />
-        )}
-      </ul>
+      <div className="Flashcards">
+        <button
+          className="Flashcards-arrow-button"
+          disabled={selectedFlashcard === 0}
+          onClick={onClickPreviousFlashcard}
+        >
+          &lt;
+        </button>
+        <Flashcard
+          flashcard={currentFlashcard}
+        />
+        <button
+          className="Flashcards-arrow-button"
+          disabled={selectedFlashcard === flashcards.length - 1}
+          onClick={onClickNextFlashcard}
+        >
+          &gt;
+        </button>
+      </div>
     );
   }
 

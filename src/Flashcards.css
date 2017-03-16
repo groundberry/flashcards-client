@@ -5,8 +5,16 @@
   flex: 3;
 }
 
-.Flashcards-flashcard {
-  background-color: #f7f7f7;
-  width: 480px;
-  height: 240px;
+.Flashcards-arrow-button {
+  background-color: transparent;
+  border-style: none;
+  color: #b0b0b0;
+  font-size: 2em;
+  font-weight:bolder;
+  padding-bottom: 20px;
+  margin: 0 20px;
+}
+
+.Flashcards-arrow-button:hover {
+  color: #808080;
 }

@@ -11,14 +11,33 @@ class Main extends Component {
     this.state = {
       tags: null,
       selectedTag: null,
-      flashcards: null
+      flashcards: null,
+      selectedFlashcard: null
     };
 
     this.handleClickTag = this.handleClickTag.bind(this);
+    this.handleClickPreviousFlashcard = this.handleClickPreviousFlashcard.bind(this);
+    this.handleClickNextFlashcard = this.handleClickNextFlashcard.bind(this);
   }
 
   handleClickTag(tag) {
     this.setState({ selectedTag: tag.id });
+  }
+
+  handleClickPreviousFlashcard() {
+    this.setState(prevState => {
+      return {
+        selectedFlashcard: Math.max(0, prevState.selectedFlashcard - 1)
+      };
+    });
+  }
+
+  handleClickNextFlashcard() {
+    this.setState(prevState => {
+      return {
+        selectedFlashcard: Math.min(prevState.selectedFlashcard + 1, prevState.flashcards.length - 1)
+      };
+    });
   }
 
   componentDidMount() {
@@ -50,12 +69,17 @@ class Main extends Component {
         return response.json();
       })
       .then(flashcards => {
-        this.setState({ flashcards })
+        this.setState({ flashcards, selectedFlashcard: 0 })
       });
   }
 
   render() {
-    const { tags, selectedTag, flashcards } = this.state;
+    const {
+      tags,
+      selectedTag,
+      flashcards,
+      selectedFlashcard
+    } = this.state;
 
     return (
       <div className="Main">
@@ -68,6 +92,9 @@ class Main extends Component {
           <Flashcards
             tag={selectedTag}
             flashcards={flashcards}
+            selectedFlashcard={selectedFlashcard}
+            onClickPreviousFlashcard={this.handleClickPreviousFlashcard}
+            onClickNextFlashcard={this.handleClickNextFlashcard}
           />
         </main>
       </div>
