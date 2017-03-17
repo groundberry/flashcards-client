@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Flashcards from './Flashcards';
+import CreateNew from './CreateNew';
 import './Main.css';
 
 class Main extends Component {
@@ -96,6 +97,7 @@ class Main extends Component {
             onClickPreviousFlashcard={this.handleClickPreviousFlashcard}
             onClickNextFlashcard={this.handleClickNextFlashcard}
           />
+          <CreateNew />
         </main>
       </div>
     );

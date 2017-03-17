@@ -19,10 +19,6 @@ class Sidebar extends Component {
               onClickTag={this.props.onClickTag}
             />
           </div>
-
-          <button className="Sidebar-button btn btn-primary col-sm-8 col-sm-offset-2">
-            Create new
-          </button>
         </div>
       </div>
     );
