@@ -7,16 +7,13 @@ import './App.css';
 class App extends Component {
   constructor() {
     super();
-    this.state = {token: null};
+
+    const params = getQueryParams();
+    this.state = {token: params.token};
   }
 
   isLoggedIn() {
     return !!this.state.token;
-  }
-
-  componentWillMount() {
-    const params = getQueryParams();
-    this.setState({token: params.token});
   }
 
   render() {

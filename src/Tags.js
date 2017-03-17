@@ -1,24 +1,31 @@
 import React, { Component } from 'react';
 import './Tags.css';
-import './index.css';
 
 class Tags extends Component {
-
-renderTags() {
-  if (this.props.tags == null) {
-    return 'Loading...';
+  handleClickTag(tag, evt) {
+    evt.preventDefault();
+    this.props.onClickTag(tag);
   }
 
-  return (
-    <ul className="Tags--list">
-      {this.props.tags.map((tag, index) =>
-        <li className="Tags--tag" key={index}>
-          {tag.name}
-        </li>
-      )}
-    </ul>
-  );
-}
+  renderTags() {
+    if (this.props.tags == null) {
+      return 'Loading...';
+    }
+
+    return (
+      <ul className="Tags--list">
+        {this.props.tags.map((tag, index) =>
+          <a className="Tags--tag"
+            href="#"
+            key={index}
+            onClick={this.handleClickTag.bind(this, tag)}
+          >
+            {tag.name}
+          </a>
+        )}
+      </ul>
+    );
+  }
 
   render() {
     return (

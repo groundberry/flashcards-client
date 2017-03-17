@@ -1,0 +1,20 @@
+.CreateNew-button {
+  background-color: #dd4b39;
+  border-radius: 50%;
+  border-style: none;
+  box-shadow: 0 6px 10px 0 rgba(0,0,0,0.3);
+  color: #fff;
+  font-size: 1.5em;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+}
+
+.CreateNew-button:hover {
+  background-color: #dd4b39;
+  color: #fff;
+  box-shadow: 3px 6px 10px 0 rgba(0,0,0,0.3);
+}
