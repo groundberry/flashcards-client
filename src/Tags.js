@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import List from 'react-toolbox/lib/list/List';
+import ListItem from 'react-toolbox/lib/list/ListItem';
+import ListSubHeader from 'react-toolbox/lib/list/ListSubHeader';
 import './Tags.css';
 
 class Tags extends Component {
@@ -9,27 +12,30 @@ class Tags extends Component {
 
   renderTags() {
     if (this.props.tags == null) {
-      return 'Loading...';
+      return (
+        <div className='Tags-loading'>
+          Loading...
+        </div>
+      );
     }
 
     return (
-      <ul className="Tags--list">
+      <List selectable ripple>
+        <ListSubHeader caption='Tags' />
         {this.props.tags.map((tag, index) =>
-          <a className="Tags--tag"
-            href="#"
+          <ListItem
             key={index}
+            caption={tag.name}
             onClick={this.handleClickTag.bind(this, tag)}
-          >
-            {tag.name}
-          </a>
+          />
         )}
-      </ul>
+      </List>
     );
   }
 
   render() {
     return (
-      <div className="Tags">
+      <div className='Tags'>
         {this.renderTags()}
       </div>
     );

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Flashcard from './Flashcard';
+import Button from 'react-toolbox/lib/button/Button';
 import './Flashcards.css';
 
 class Flashcards extends Component {
@@ -21,31 +22,29 @@ class Flashcards extends Component {
     const currentFlashcard = flashcards[selectedFlashcard];
 
     return (
-      <div className="Flashcards">
-        <button
-          className="Flashcards-arrow-button"
-          disabled={selectedFlashcard === 0}
-          onClick={onClickPreviousFlashcard}
-        >
-          &lt;
-        </button>
+      <div className='Flashcards-content'>
+        <div className='Flashcards-button'>
+          <Button icon='keyboard_arrow_left' floating
+            disabled={selectedFlashcard === 0}
+            onClick={onClickPreviousFlashcard}
+          />
+        </div>
         <Flashcard
           flashcard={currentFlashcard}
         />
-        <button
-          className="Flashcards-arrow-button"
-          disabled={selectedFlashcard === flashcards.length - 1}
-          onClick={onClickNextFlashcard}
-        >
-          &gt;
-        </button>
+        <div className='Flashcards-button'>
+          <Button icon='keyboard_arrow_right' floating
+            disabled={selectedFlashcard === flashcards.length - 1}
+            onClick={onClickNextFlashcard}
+          />
+        </div>
       </div>
     );
   }
 
   render() {
     return (
-      <div className="Flashcards">
+      <div className='Flashcards'>
         {this.renderFlashcards()}
       </div>
     );

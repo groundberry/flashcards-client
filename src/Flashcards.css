@@ -1,20 +1,18 @@
 .Flashcards {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   flex: 3;
 }
 
-.Flashcards-arrow-button {
-  background-color: transparent;
-  border-style: none;
-  color: #b0b0b0;
-  font-size: 2em;
-  font-weight: bolder;
-  padding-bottom: 20px;
-  margin: 0 20px;
+.Flashcards-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
 }
 
-.Flashcards-arrow-button:hover {
-  color: #808080;
+.Flashcards-button {
+  margin: 0 50px;
 }

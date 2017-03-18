@@ -1,12 +1,11 @@
-.Tags-list {
-  list-style: none;
-  margin-top: 30px;
+.Tags {
+  display: flex;
+  flex: 1;
 }
 
-.Tags-link {
-  cursor: pointer;
-}
-
-.Tags-link:hover {
-  text-shadow: 50%;
+.Tags-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 }
