@@ -1,24 +1,5 @@
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: Roboto, sans-serif;
   margin: 0;
   padding: 0;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Varela Round', sans-serif;
-}
-
-#bg {
-  background-attachment: fixed;
-  background-image: url(../public/img/background.jpg);
-  background-position: 50% 0%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  opacity: 0.25;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
 }

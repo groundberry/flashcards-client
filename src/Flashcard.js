@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import Card from 'react-toolbox/lib/card/Card';
+import CardText from 'react-toolbox/lib/card/CardText';
+import CardActions from 'react-toolbox/lib/card/CardActions';
+import Button from 'react-toolbox/lib/button/Button';
 import './Flashcard.css';
 
 class Flashcard extends Component {
@@ -33,18 +37,25 @@ class Flashcard extends Component {
     const { showAnswer } = this.state;
 
     return (
-      <div className="Flashcard well"
-        onClick={this.handleClick}
-      >
-        {!showAnswer ?
-          <span className="Flashcard-question">
-            {flashcard.question}
-          </span> :
-          <span className="Flashcard-answer">
-            {flashcard.answer}
-          </span>
-        }
-      </div>
+      <Card className='Flashcard'>
+        <CardText>
+          {!showAnswer ?
+            <div className='Flashcard-question'>
+              {flashcard.question}
+            </div> :
+            <div className='Flashcard-answer'>
+              {flashcard.answer}
+            </div>
+          }
+        </CardText>
+        <CardActions className='Flashcard-actions'>
+          <Button
+            icon='replay'
+            label='Flip'
+            onClick={this.handleClick}
+          />
+        </CardActions>
+      </Card>
     );
   }
 }

@@ -1,4 +1,8 @@
 .Header {
   flex: none;
-  margin-bottom: 0;
+}
+
+.Header-link {
+  color: #fff !important;
+  text-decoration: none;
 }

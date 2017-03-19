@@ -18,7 +18,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className='App'>
         {this.isLoggedIn()
           ? <Main token={this.state.token} />
           : <Login />

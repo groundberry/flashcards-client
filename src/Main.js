@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import Button from 'react-toolbox/lib/button/Button';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Flashcards from './Flashcards';
-import CreateNew from './CreateNew';
 import './Main.css';
 
 class Main extends Component {
@@ -83,9 +83,9 @@ class Main extends Component {
     } = this.state;
 
     return (
-      <div className="Main">
+      <div className='Main'>
         <Header />
-        <main className="Main-content">
+        <div className='Main-content'>
           <Sidebar
             tags={tags}
             onClickTag={this.handleClickTag}
@@ -97,8 +97,10 @@ class Main extends Component {
             onClickPreviousFlashcard={this.handleClickPreviousFlashcard}
             onClickNextFlashcard={this.handleClickNextFlashcard}
           />
-          <CreateNew />
-        </main>
+          <div className='Main-button'>
+            <Button icon='add' floating accent />
+          </div>
+        </div>
       </div>
     );
   }

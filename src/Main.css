@@ -9,3 +9,9 @@
   flex-direction: row;
   flex: 1;
 }
+
+.Main-button {
+  position: fixed;
+  bottom: 40px;
+  right: 50px;
+}
