@@ -3,6 +3,7 @@ import Button from 'react-toolbox/lib/button/Button';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Flashcards from './Flashcards';
+import FlashcardDialog from './FlashcardDialog';
 import './Main.css';
 
 class Main extends Component {
@@ -13,12 +14,15 @@ class Main extends Component {
       tags: null,
       selectedTag: null,
       flashcards: null,
-      selectedFlashcard: null
+      selectedFlashcard: null,
+      showDialog: false
     };
 
     this.handleClickTag = this.handleClickTag.bind(this);
     this.handleClickPreviousFlashcard = this.handleClickPreviousFlashcard.bind(this);
     this.handleClickNextFlashcard = this.handleClickNextFlashcard.bind(this);
+    this.handleSaveFlashcardDialog = this.handleSaveFlashcardDialog.bind(this);
+    this.handleToggleFlashcardDialog = this.handleToggleFlashcardDialog.bind(this);
   }
 
   handleClickTag(tag) {
@@ -39,6 +43,14 @@ class Main extends Component {
         selectedFlashcard: Math.min(prevState.selectedFlashcard + 1, prevState.flashcards.length - 1)
       };
     });
+  }
+
+  handleSaveFlashcardDialog() {
+    // TODO
+  }
+
+  handleToggleFlashcardDialog() {
+    this.setState({showDialog: !this.state.showDialog});
   }
 
   componentDidMount() {
@@ -79,12 +91,14 @@ class Main extends Component {
       tags,
       selectedTag,
       flashcards,
-      selectedFlashcard
+      selectedFlashcard,
+      showDialog
     } = this.state;
 
     return (
       <div className='Main'>
         <Header />
+
         <div className='Main-content'>
           <Sidebar
             tags={tags}
@@ -98,9 +112,20 @@ class Main extends Component {
             onClickNextFlashcard={this.handleClickNextFlashcard}
           />
           <div className='Main-button'>
-            <Button icon='add' floating accent />
+            <Button
+              icon='add'
+              floating
+              accent
+              onClick={this.handleToggleFlashcardDialog}
+            />
           </div>
         </div>
+
+        <FlashcardDialog
+          active={showDialog}
+          onSave={this.handleSaveFlashcardDialog}
+          onCancel={this.handleToggleFlashcardDialog}
+        />
       </div>
     );
   }
