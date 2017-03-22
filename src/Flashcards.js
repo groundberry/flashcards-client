@@ -13,6 +13,10 @@ class Flashcards extends Component {
       return 'Loading...';
     }
 
+    if (this.props.flashcards.length === 0) {
+      return 'Add a flashcard for this tag!';
+    }
+
     const {
       flashcards,
       selectedFlashcard,
