@@ -5,8 +5,7 @@ import ListSubHeader from 'react-toolbox/lib/list/ListSubHeader';
 import './Tags.css';
 
 class Tags extends Component {
-  handleClickTag(tag, evt) {
-    evt.preventDefault();
+  handleClickTag(tag) {
     this.props.onClickTag(tag);
   }
 
