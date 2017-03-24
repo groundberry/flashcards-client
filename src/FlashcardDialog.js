@@ -9,14 +9,24 @@ class FlashcardDialog extends Component {
 
     this.state = {
       question: '',
-      answer: '',
-      tags: []
+      answer: ''
     };
+
+    this.handleClickCancel = this.handleClickCancel.bind(this);
+    this.handleClickSave = this.handleClickSave.bind(this);
   }
 
-  handleChange = (field, value) => {
+  handleClickCancel() {
+    this.props.onCancel();
+  }
+
+  handleClickSave() {
+    this.props.onSave(this.state);
+  }
+
+  handleChange(field, value) {
     this.setState({...this.state, [field]: value});
-  };
+  }
 
   render() {
     return (
@@ -24,39 +34,30 @@ class FlashcardDialog extends Component {
         title='Create new flashcard'
         active={this.props.active}
         actions={[
-          { label: "Cancel", onClick: this.props.onCancel },
-          { label: "Save", onClick: this.props.onSave }
+          { label: 'Cancel', onClick: this.handleClickCancel },
+          { label: 'Save', onClick: this.handleClickSave }
         ]}
-        onOverlayClick={this.props.onCancel}
-        onEscKeyDown={this.props.onCancel}
+        onOverlayClick={this.handleClickCancel}
+        onEscKeyDown={this.handleClickCancel}
       >
-      <Input
-        type='text'
-        name='question'
-        label='Question'
-        value={this.state.question}
-        required={true}
-        multiline={true}
-        onChange={this.handleChange.bind(this, 'question')}
-      />
-      <Input
-        type='text'
-        label='Answer'
-        name='answer'
-        value={this.state.answer}
-        required={true}
-        multiline={true}
-        onChange={this.handleChange.bind(this, 'answer')}
-      />
-      <Input
-        type='text'
-        label='Tags'
-        name='tags'
-        value={this.state.tags}
-        required={true}
-        multiline={true}
-        onChange={this.handleChange.bind(this, 'tags')}
-      />
+        <Input
+          type='text'
+          name='question'
+          label='Question'
+          value={this.state.question}
+          required={true}
+          multiline={true}
+          onChange={this.handleChange.bind(this, 'question')}
+        />
+        <Input
+          type='text'
+          label='Answer'
+          name='answer'
+          value={this.state.answer}
+          required={true}
+          multiline={true}
+          onChange={this.handleChange.bind(this, 'answer')}
+        />
       </Dialog>
     )
   }
