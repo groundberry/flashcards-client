@@ -3,6 +3,7 @@ import Button from 'react-toolbox/lib/button/Button';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Flashcards from './Flashcards';
+import FlashcardDialog from './FlashcardDialog';
 import './Main.css';
 
 class Main extends Component {
@@ -13,12 +14,15 @@ class Main extends Component {
       tags: null,
       selectedTag: null,
       flashcards: null,
-      selectedFlashcard: null
+      selectedFlashcard: null,
+      showDialog: false
     };
 
     this.handleClickTag = this.handleClickTag.bind(this);
     this.handleClickPreviousFlashcard = this.handleClickPreviousFlashcard.bind(this);
     this.handleClickNextFlashcard = this.handleClickNextFlashcard.bind(this);
+    this.handleSaveFlashcardDialog = this.handleSaveFlashcardDialog.bind(this);
+    this.handleToggleFlashcardDialog = this.handleToggleFlashcardDialog.bind(this);
   }
 
   handleClickTag(tag) {
@@ -41,21 +45,23 @@ class Main extends Component {
     });
   }
 
-  componentDidMount() {
-    const { token } = this.props;
-    const url = `https://flashcards-server.herokuapp.com/tags?token=${token}`;
+  handleSaveFlashcardDialog(flashcard) {
+    this.createFlashcard(flashcard);
+  }
 
-    fetch(url)
-      .then(response => {
-        return response.json();
-      })
-      .then(tags => {
-        this.setState({ tags })
-      });
+  handleToggleFlashcardDialog() {
+    this.setState(prevState => {
+      return {
+        showDialog: !prevState.showDialog
+      };
+    });
+  }
+
+  componentDidMount() {
+    this.fetchTags();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { token } = this.props;
     const currentTag = this.state.selectedTag;
     const prevTag = prevState.selectedTag;
 
@@ -63,15 +69,7 @@ class Main extends Component {
       return;
     }
 
-    const url = `https://flashcards-server.herokuapp.com/tags/${currentTag}/flashcards?token=${token}`;
-
-    fetch(url)
-      .then(response => {
-        return response.json();
-      })
-      .then(flashcards => {
-        this.setState({ flashcards, selectedFlashcard: 0 })
-      });
+    this.fetchFlashcards(currentTag);
   }
 
   render() {
@@ -79,7 +77,8 @@ class Main extends Component {
       tags,
       selectedTag,
       flashcards,
-      selectedFlashcard
+      selectedFlashcard,
+      showDialog
     } = this.state;
 
     return (
@@ -98,11 +97,84 @@ class Main extends Component {
             onClickNextFlashcard={this.handleClickNextFlashcard}
           />
           <div className='Main-button'>
-            <Button icon='add' floating accent />
+            <Button
+              icon='add'
+              floating
+              accent
+              onClick={this.handleToggleFlashcardDialog}
+            />
           </div>
         </div>
+        <FlashcardDialog
+          active={showDialog}
+          onSave={this.handleSaveFlashcardDialog}
+          onCancel={this.handleToggleFlashcardDialog}
+        />
       </div>
     );
+  }
+
+  fetchTags() {
+    const { token } = this.props;
+    const url = `https://flashcards-server.herokuapp.com/tags?token=${token}`;
+
+    fetch(url, {
+      headers: {
+        'Accept': 'application/json'
+      },
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(tags => {
+        this.setState({ tags })
+      })
+      .catch(error => {
+        console.error('Could not fetch tags', error);
+      });
+  }
+
+  fetchFlashcards(currentTag) {
+    const { token } = this.props;
+    const url = `https://flashcards-server.herokuapp.com/tags/${currentTag}/flashcards?token=${token}`;
+
+    fetch(url, {
+      headers: {
+        'Accept': 'application/json'
+      },
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(flashcards => {
+        this.setState({ flashcards, selectedFlashcard: 0 })
+      })
+      .catch(error => {
+        console.error('Could not fetch flashcards', error);
+      });
+  }
+
+  createFlashcard(flashcard) {
+    const { token } = this.props;
+    const url = `https://flashcards-server.herokuapp.com/flashcards?token=${token}`;
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ flashcard })
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(flashcard => {
+        this.setState({ showDialog: false });
+      })
+      .catch(error => {
+        console.log('Could not create flashcard', error);
+      });
   }
 }
 

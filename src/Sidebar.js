@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import Tags from './Tags'
 import './Sidebar.css';
-import './Tags.css';
-
 
 class Sidebar extends Component {
-
   render() {
     return (
       <div className='Sidebar'>
