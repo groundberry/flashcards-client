@@ -4,6 +4,7 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import Flashcards from './Flashcards';
 import FlashcardDialog from './FlashcardDialog';
+import * as utils from './utils';
 import './Main.css';
 
 class Main extends Component {
@@ -106,6 +107,7 @@ class Main extends Component {
           </div>
         </div>
         <FlashcardDialog
+          tags={tags}
           active={showDialog}
           onSave={this.handleSaveFlashcardDialog}
           onCancel={this.handleToggleFlashcardDialog}
@@ -115,65 +117,23 @@ class Main extends Component {
   }
 
   fetchTags() {
-    const { token } = this.props;
-    const url = `https://flashcards-server.herokuapp.com/tags?token=${token}`;
-
-    fetch(url, {
-      headers: {
-        'Accept': 'application/json'
-      },
-    })
-      .then(response => {
-        return response.json();
-      })
+    utils.fetchTags({ token: this.props.token })
       .then(tags => {
         this.setState({ tags })
-      })
-      .catch(error => {
-        console.error('Could not fetch tags', error);
       });
   }
 
-  fetchFlashcards(currentTag) {
-    const { token } = this.props;
-    const url = `https://flashcards-server.herokuapp.com/tags/${currentTag}/flashcards?token=${token}`;
-
-    fetch(url, {
-      headers: {
-        'Accept': 'application/json'
-      },
-    })
-      .then(response => {
-        return response.json();
-      })
+  fetchFlashcards(tag) {
+    utils.fetchFlashcards({ token: this.props.token, tag })
       .then(flashcards => {
         this.setState({ flashcards, selectedFlashcard: 0 })
-      })
-      .catch(error => {
-        console.error('Could not fetch flashcards', error);
       });
   }
 
   createFlashcard(flashcard) {
-    const { token } = this.props;
-    const url = `https://flashcards-server.herokuapp.com/flashcards?token=${token}`;
-
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ flashcard })
-    })
-      .then(response => {
-        return response.json();
-      })
+    utils.createFlashcard({ token: this.props.token, flashcard })
       .then(flashcard => {
         this.setState({ showDialog: false });
-      })
-      .catch(error => {
-        console.log('Could not create flashcard', error);
       });
   }
 }
