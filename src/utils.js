@@ -30,7 +30,7 @@ export function fetchFlashcards(options) {
   const { token, tag } = options;
   const url = `${baseApiUrl}/tags/${tag}/flashcards?token=${token}`;
 
-  fetch(url, {
+  return fetch(url, {
     headers: {
       'Accept': 'application/json'
     },
@@ -47,7 +47,7 @@ export function createFlashcard(options) {
   const { token, flashcard } = options;
   const url = `${baseApiUrl}/flashcards?token=${token}`;
 
-  fetch(url, {
+  return fetch(url, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
