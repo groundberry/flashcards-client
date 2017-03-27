@@ -4,15 +4,17 @@ import Input from 'react-toolbox/lib/input/Input';
 import Autocomplete from 'react-toolbox/lib/autocomplete/Autocomplete';
 import './FlashcardDialog.css'
 
+const initialState = {
+  question: '',
+  answer: '',
+  tags: []
+};
+
 class FlashcardDialog extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      question: '',
-      answer: '',
-      tags: []
-    };
+    this.state = initialState;
 
     this.handleClickCancel = this.handleClickCancel.bind(this);
     this.handleClickSave = this.handleClickSave.bind(this);
@@ -24,6 +26,7 @@ class FlashcardDialog extends Component {
 
   handleClickSave() {
     this.props.onSave(this.state);
+    this.setState(initialState);
   }
 
   handleChange(field, value) {
