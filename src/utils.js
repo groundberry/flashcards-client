@@ -79,3 +79,22 @@ export function createFlashcard(options) {
     console.log('Could not create flashcard', error);
   });
 }
+
+export function union(arr1, arr2, comparator) {
+  return unique(arr1.concat(arr2), comparator);
+}
+
+export function unique(arr, comparator) {
+  return arr.filter((elem, index) => (
+    index === findIndex(arr, elem, comparator)
+  ));
+}
+
+export function findIndex(arr, elem, comparator = (a, b) => a === b) {
+  for (let i = 0; i < arr.length; i++) {
+    if (comparator(elem, arr[i])) {
+      return i;
+    }
+  }
+  return -1;
+}

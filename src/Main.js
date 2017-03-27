@@ -145,7 +145,11 @@ class Main extends Component {
   createFlashcard(flashcard) {
     utils.createFlashcard({ token: this.props.token, flashcard })
       .then(flashcard => {
-        this.setState({ showDialog: false });
+        const tagComparator = (a, b) => (a.id === b.id);
+        this.setState(prevState => ({
+          showDialog: false,
+          tags: utils.union(prevState.tags, flashcard.tags, tagComparator)
+        }));
       });
   }
 }
