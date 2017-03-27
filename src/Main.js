@@ -145,11 +145,24 @@ class Main extends Component {
   createFlashcard(flashcard) {
     utils.createFlashcard({ token: this.props.token, flashcard })
       .then(flashcard => {
-        const tagComparator = (a, b) => (a.id === b.id);
-        this.setState(prevState => ({
-          showDialog: false,
-          tags: utils.union(prevState.tags, flashcard.tags, tagComparator)
-        }));
+        this.setState(prevState => {
+          const idComparator = (a, b) => (a.id === b.id);
+          // Add new tags to the current list of tags removing duplicates.
+          const newTags = utils.union(prevState.tags, flashcard.tags, idComparator);
+          // Add new flashcard to the current list of flashcards if it contains
+          // the current tag.
+          const newFlashcards = prevState.flashcards.concat(
+            utils.contains(flashcard.tags, {id: prevState.selectedTag}, idComparator)
+              ? flashcard
+              : []
+          );
+
+          return {
+            showDialog: false,
+            tags: newTags,
+            flashcards: newFlashcards,
+          };
+        });
       });
   }
 }
