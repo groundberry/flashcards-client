@@ -12,6 +12,7 @@ class Main extends Component {
     super(props);
 
     this.state = {
+      info: null,
       tags: null,
       selectedTag: null,
       flashcards: null,
@@ -59,6 +60,7 @@ class Main extends Component {
   }
 
   componentDidMount() {
+    this.fetchUserDetails();
     this.fetchTags();
   }
 
@@ -75,6 +77,7 @@ class Main extends Component {
 
   render() {
     const {
+      info,
       tags,
       selectedTag,
       flashcards,
@@ -84,7 +87,9 @@ class Main extends Component {
 
     return (
       <div className='Main'>
-        <Header />
+        <Header
+          info={info}
+        />
         <div className='Main-content'>
           <Sidebar
             tags={tags}
@@ -114,6 +119,13 @@ class Main extends Component {
         />
       </div>
     );
+  }
+
+  fetchUserDetails() {
+    utils.fetchUserDetails({ token: this.props.token })
+      .then(info => {
+        this.setState({ info })
+      });
   }
 
   fetchTags() {

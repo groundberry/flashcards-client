@@ -10,7 +10,9 @@ class Tags extends Component {
   }
 
   renderTags() {
-    if (this.props.tags == null) {
+    const { tags } = this.props;
+
+    if (tags == null) {
       return (
         <div className='Tags-loading'>
           Loading...
@@ -21,7 +23,7 @@ class Tags extends Component {
     return (
       <List selectable ripple>
         <ListSubHeader caption='Tags' />
-        {this.props.tags.map((tag, index) =>
+        {tags.map((tag, index) =>
           <ListItem
             key={index}
             caption={tag.name}

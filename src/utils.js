@@ -9,6 +9,23 @@ export function getQueryParams() {
 
 const baseApiUrl = 'https://flashcards-server.herokuapp.com';
 
+export function fetchUserDetails(options) {
+  const { token } = options;
+  const url = `${baseApiUrl}/user?token=${token}`;
+
+  return fetch(url, {
+    headers: {
+      'Accept': 'application/json'
+    },
+  })
+  .then(response => {
+    return response.json();
+  })
+  .catch(error => {
+    console.error('Could not fetch user details', error);
+  });
+}
+
 export function fetchTags(options) {
   const { token } = options;
   const url = `${baseApiUrl}/tags?token=${token}`;
