@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Flashcard from './Flashcard';
 import Button from 'react-toolbox/lib/button/Button';
+import Chip from 'react-toolbox/lib/chip/Chip';
 import './Flashcards.css';
 
 class Flashcards extends Component {
@@ -41,6 +42,11 @@ class Flashcards extends Component {
             disabled={selectedFlashcard === flashcards.length - 1}
             onClick={onClickNextFlashcard}
           />
+        </div>
+        <div className='Flashcards-index'>
+          <Chip>
+            {selectedFlashcard + 1} / {flashcards.length}
+          </Chip>
         </div>
       </div>
     );
