@@ -6,6 +6,10 @@ import Avatar from 'react-toolbox/lib/avatar/Avatar';
 import './Header.css';
 
 class Header extends Component {
+  handleClickLogOut() {
+    window.location.href = window.location.href.replace(/\?.*$/, '');
+  }
+
   render() {
     const { info } = this.props;
 
@@ -28,6 +32,7 @@ class Header extends Component {
             label='Log out'
             icon='exit_to_app'
             className='Header-link'
+            onClick={this.handleClickLogOut}
           />
         </Navigation>
       </AppBar>
