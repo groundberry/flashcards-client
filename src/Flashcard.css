@@ -4,6 +4,10 @@
   min-height: 200px;
 }
 
+.Flashcard-menu {
+  text-align: right;
+}
+
 .Flashcard-actions {
   justify-content: center;
 }

@@ -3,6 +3,9 @@ import Card from 'react-toolbox/lib/card/Card';
 import CardText from 'react-toolbox/lib/card/CardText';
 import CardActions from 'react-toolbox/lib/card/CardActions';
 import Button from 'react-toolbox/lib/button/Button';
+import IconMenu from 'react-toolbox/lib/menu/IconMenu';
+import MenuItem from 'react-toolbox/lib/menu/MenuItem';
+import MenuDivider from 'react-toolbox/lib/menu/MenuDivider';
 import './Flashcard.css';
 
 class Flashcard extends Component {
@@ -24,7 +27,9 @@ class Flashcard extends Component {
   }
 
   handleClickDelete() {
-    this.props.onClickDelete(this.props.flashcard);
+    if (confirm('Are you sure you want to delete it?')){
+      this.props.onClickDelete(this.props.flashcard);
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -42,6 +47,24 @@ class Flashcard extends Component {
 
     return (
       <Card className='Flashcard'>
+        <IconMenu
+          icon='more_vert'
+          menuRipple
+          className='Flashcard-menu'
+        >
+          <MenuItem
+            value='edit'
+            icon='edit'
+            caption='Edit'
+          />
+          <MenuDivider />
+          <MenuItem
+            value='signout'
+            icon='delete'
+            caption='Delete'
+            onClick={this.handleClickDelete}
+          />
+        </IconMenu>
         <CardText>
           {!showAnswer ?
             <div className='Flashcard-question'>
@@ -57,11 +80,6 @@ class Flashcard extends Component {
             icon='replay'
             label='Flip'
             onClick={this.handleClickFlip}
-          />
-          <Button
-            icon='delete'
-            label='Delete'
-            onClick={this.handleClickDelete}
           />
         </CardActions>
       </Card>
