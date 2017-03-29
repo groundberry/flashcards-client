@@ -80,6 +80,21 @@ export function createFlashcard(options) {
   });
 }
 
+export function deleteFlashcard(options) {
+  const { token, flashcard } = options;
+  const url = `${baseApiUrl}/flashcards/${flashcard.id}?token=${token}`;
+
+  return fetch(url, {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+  .catch(error => {
+    console.log('Could not delete flashcard', error);
+  });
+}
+
 export function findIndex(arr, elem, comparator = (a, b) => a === b) {
   for (let i = 0; i < arr.length; i++) {
     if (comparator(elem, arr[i])) {
