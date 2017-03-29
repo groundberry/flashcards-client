@@ -23,6 +23,7 @@ class Main extends Component {
     this.handleClickTag = this.handleClickTag.bind(this);
     this.handleClickPreviousFlashcard = this.handleClickPreviousFlashcard.bind(this);
     this.handleClickNextFlashcard = this.handleClickNextFlashcard.bind(this);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
     this.handleSaveFlashcardDialog = this.handleSaveFlashcardDialog.bind(this);
     this.handleToggleFlashcardDialog = this.handleToggleFlashcardDialog.bind(this);
   }
@@ -45,6 +46,10 @@ class Main extends Component {
         selectedFlashcard: Math.min(prevState.selectedFlashcard + 1, prevState.flashcards.length - 1)
       };
     });
+  }
+
+  handleClickDelete(flashcard) {
+    this.deleteFlashcard(flashcard);
   }
 
   handleSaveFlashcardDialog(flashcard) {
@@ -101,6 +106,7 @@ class Main extends Component {
             selectedFlashcard={selectedFlashcard}
             onClickPreviousFlashcard={this.handleClickPreviousFlashcard}
             onClickNextFlashcard={this.handleClickNextFlashcard}
+            onClickDelete={this.handleClickDelete}
           />
           <div className='Main-button'>
             <Button
@@ -156,12 +162,33 @@ class Main extends Component {
               ? flashcard
               : []
           );
+          const newIndex = prevState.selectedFlashcard || 0;
 
           return {
             showDialog: false,
             tags: newTags,
             flashcards: newFlashcards,
+            selectedFlashcard: newIndex
           };
+        });
+      });
+  }
+
+  deleteFlashcard(flashcard) {
+    utils.deleteFlashcard({ token: this.props.token, flashcard })
+      .then(() => {
+        this.setState(prevState => {
+          const newFlashcards = prevState.flashcards.filter((f) => {
+            return f.id !== flashcard.id;
+          });
+          const newIndex = prevState.flashcards.length - 1 > 0
+            ? Math.max(0, prevState.selectedFlashcard - 1)
+            : null;
+
+          return {
+            flashcards: newFlashcards,
+            selectedFlashcard: newIndex
+          }
         });
       });
   }

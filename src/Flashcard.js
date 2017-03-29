@@ -13,14 +13,18 @@ class Flashcard extends Component {
       showAnswer: false
     };
 
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClickFlip = this.handleClickFlip.bind(this);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
   }
 
-  handleClick(evt) {
-    evt.preventDefault();
+  handleClickFlip() {
     this.setState(prevState => {
       return { showAnswer: !prevState.showAnswer };
     });
+  }
+
+  handleClickDelete() {
+    this.props.onClickDelete(this.props.flashcard);
   }
 
   componentDidUpdate(prevProps) {
@@ -52,7 +56,12 @@ class Flashcard extends Component {
           <Button
             icon='replay'
             label='Flip'
-            onClick={this.handleClick}
+            onClick={this.handleClickFlip}
+          />
+          <Button
+            icon='delete'
+            label='Delete'
+            onClick={this.handleClickDelete}
           />
         </CardActions>
       </Card>

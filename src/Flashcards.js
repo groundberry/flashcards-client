@@ -22,8 +22,10 @@ class Flashcards extends Component {
       flashcards,
       selectedFlashcard,
       onClickPreviousFlashcard,
-      onClickNextFlashcard
-     } = this.props;
+      onClickNextFlashcard,
+      onClickDelete
+    } = this.props;
+
     const currentFlashcard = flashcards[selectedFlashcard];
 
     return (
@@ -36,6 +38,7 @@ class Flashcards extends Component {
         </div>
         <Flashcard
           flashcard={currentFlashcard}
+          onClickDelete={onClickDelete}
         />
         <div className='Flashcards-button'>
           <Button icon='keyboard_arrow_right' floating
