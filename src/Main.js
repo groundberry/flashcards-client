@@ -14,9 +14,9 @@ class Main extends Component {
     this.state = {
       info: null,
       tags: null,
-      selectedTag: null,
+      selectedTagId: null,
       flashcards: null,
-      selectedFlashcard: null,
+      selectedFlashcardIndex: null,
       showDialog: false
     };
 
@@ -29,13 +29,13 @@ class Main extends Component {
   }
 
   handleClickTag(tag) {
-    this.setState({ selectedTag: tag.id });
+    this.setState({ selectedTagId: tag.id });
   }
 
   handleClickPreviousFlashcard() {
     this.setState(prevState => {
       return {
-        selectedFlashcard: Math.max(0, prevState.selectedFlashcard - 1)
+        selectedFlashcardIndex: Math.max(0, prevState.selectedFlashcardIndex - 1)
       };
     });
   }
@@ -43,7 +43,7 @@ class Main extends Component {
   handleClickNextFlashcard() {
     this.setState(prevState => {
       return {
-        selectedFlashcard: Math.min(prevState.selectedFlashcard + 1, prevState.flashcards.length - 1)
+        selectedFlashcardIndex: Math.min(prevState.selectedFlashcardIndex + 1, prevState.flashcards.length - 1)
       };
     });
   }
@@ -70,23 +70,23 @@ class Main extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const currentTag = this.state.selectedTag;
-    const prevTag = prevState.selectedTag;
+    const currentTagId = this.state.selectedTagId;
+    const prevTagId = prevState.selectedTagId;
 
-    if (currentTag === prevTag || currentTag == null) {
+    if (currentTagId === prevTagId || currentTagId == null) {
       return;
     }
 
-    this.fetchFlashcards(currentTag);
+    this.fetchFlashcards(currentTagId);
   }
 
   render() {
     const {
       info,
       tags,
-      selectedTag,
+      selectedTagId,
       flashcards,
-      selectedFlashcard,
+      selectedFlashcardIndex,
       showDialog
     } = this.state;
 
@@ -101,9 +101,9 @@ class Main extends Component {
             onClickTag={this.handleClickTag}
           />
           <Flashcards
-            tag={selectedTag}
+            tagId={selectedTagId}
             flashcards={flashcards}
-            selectedFlashcard={selectedFlashcard}
+            selectedFlashcardIndex={selectedFlashcardIndex}
             onClickPreviousFlashcard={this.handleClickPreviousFlashcard}
             onClickNextFlashcard={this.handleClickNextFlashcard}
             onClickDelete={this.handleClickDelete}
@@ -144,7 +144,7 @@ class Main extends Component {
   fetchFlashcards(tag) {
     utils.fetchFlashcards({ token: this.props.token, tag })
       .then(flashcards => {
-        this.setState({ flashcards, selectedFlashcard: 0 })
+        this.setState({ flashcards, selectedFlashcardIndex: 0 })
       });
   }
 
@@ -158,17 +158,17 @@ class Main extends Component {
           // Add new flashcard to the current list of flashcards if it contains
           // the current tag.
           const newFlashcards = prevState.flashcards.concat(
-            utils.contains(flashcard.tags, {id: prevState.selectedTag}, idComparator)
+            utils.contains(flashcard.tags, {id: prevState.selectedTagId}, idComparator)
               ? flashcard
               : []
           );
-          const newIndex = prevState.selectedFlashcard || 0;
+          const newIndex = prevState.selectedFlashcardIndex || 0;
 
           return {
             showDialog: false,
             tags: newTags,
             flashcards: newFlashcards,
-            selectedFlashcard: newIndex
+            selectedFlashcardIndex: newIndex
           };
         });
       });
@@ -182,12 +182,12 @@ class Main extends Component {
             return f.id !== flashcard.id;
           });
           const newIndex = prevState.flashcards.length - 1 > 0
-            ? Math.max(0, prevState.selectedFlashcard - 1)
+            ? Math.max(0, prevState.selectedFlashcardIndex - 1)
             : null;
 
           return {
             flashcards: newFlashcards,
-            selectedFlashcard: newIndex
+            selectedFlashcardIndex: newIndex
           }
         });
       });
