@@ -4,45 +4,47 @@ import Input from 'react-toolbox/lib/input/Input';
 import Autocomplete from 'react-toolbox/lib/autocomplete/Autocomplete';
 import './FlashcardDialog.css'
 
-const initialState = {
-  question: '',
-  answer: '',
-  tags: []
-};
-
 class FlashcardDialog extends Component {
   constructor(props) {
     super(props);
 
-    this.state = initialState;
-
+    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeTags = this.handleChangeTags.bind(this);
     this.handleClickCancel = this.handleClickCancel.bind(this);
     this.handleClickSave = this.handleClickSave.bind(this);
+  }
+
+  handleChange(field, value) {
+    this.props.onChange(field, value);
+  }
+
+  handleChangeTags(value) {
+    this.props.onChange('tags', value.map(tag => ({ name: tag })));
+  }
+
+  handleClickSave() {
+    this.props.onSave(this.props.flashcard);
   }
 
   handleClickCancel() {
     this.props.onCancel();
   }
 
-  handleClickSave() {
-    this.props.onSave(this.state);
-    this.setState(initialState);
-  }
-
-  handleChange(field, value) {
-    this.setState({ [field]: value });
-  }
-
   render() {
-    const { question, answer, tags } = this.state;
-    const { active, tags: suggestedTags } = this.props;
-    const suggestedTagNames = (suggestedTags || []).map((tag) => tag.name);
-    const sortedTagNames = tags.concat(suggestedTagNames).sort();
+    if (this.props.flashcard == null) {
+      return null;
+    }
+
+    const { flashcard, tags: suggestedTags } = this.props;
+    const suggestedTagNames = (suggestedTags || []).map(tag => tag.name);
+    const { question, answer, tags: existingTags } = flashcard;
+    const existingTagNames = (existingTags || []).map(tag => tag.name);
+    const sortedTagNames = existingTagNames.concat(suggestedTagNames).sort();
 
     return (
       <Dialog
-        title='Create new flashcard'
-        active={active}
+        title='Edit flashcard'
+        active={true}
         actions={[
           { label: 'Cancel', onClick: this.handleClickCancel },
           { label: 'Save', onClick: this.handleClickSave }
@@ -57,7 +59,7 @@ class FlashcardDialog extends Component {
           value={question}
           required={true}
           multiline={true}
-          onChange={this.handleChange.bind(this, 'question')}
+          onChange={this.handleChange.bind(null, 'question')}
         />
         <Input
           type='text'
@@ -66,7 +68,7 @@ class FlashcardDialog extends Component {
           value={answer}
           required={true}
           multiline={true}
-          onChange={this.handleChange.bind(this, 'answer')}
+          onChange={this.handleChange.bind(null, 'answer')}
         />
         <Autocomplete
           direction='down'
@@ -74,11 +76,11 @@ class FlashcardDialog extends Component {
           label='Tags'
           name='tags'
           source={sortedTagNames}
-          value={tags}
+          value={existingTagNames}
           allowCreate={true}
           required={true}
           multiple={true}
-          onChange={this.handleChange.bind(this, 'tags')}
+          onChange={this.handleChangeTags}
         />
       </Dialog>
     )

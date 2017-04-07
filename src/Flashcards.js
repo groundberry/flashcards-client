@@ -23,6 +23,7 @@ class Flashcards extends Component {
       selectedFlashcardIndex,
       onClickPreviousFlashcard,
       onClickNextFlashcard,
+      onClickEdit,
       onClickDelete
     } = this.props;
 
@@ -38,6 +39,7 @@ class Flashcards extends Component {
         </div>
         <Flashcard
           flashcard={currentFlashcard}
+          onClickEdit={onClickEdit}
           onClickDelete={onClickDelete}
         />
         <div className='Flashcards-button'>

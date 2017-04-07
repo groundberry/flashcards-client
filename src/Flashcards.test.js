@@ -10,19 +10,19 @@ describe('<Flashcards />', () => {
   });
 
   it('renders a message when no flashcards', () => {
-    const wrapper = shallow(<Flashcards tag='foo' />);
+    const wrapper = shallow(<Flashcards tagId={42} />);
     expect(wrapper.text()).toEqual('Loading...');
   });
 
   it('renders a message when tag and empty flashcards', () => {
-    const wrapper = shallow(<Flashcards tag='foo' flashcards={[]} />);
+    const wrapper = shallow(<Flashcards tagId={42} flashcards={[]} />);
     expect(wrapper.text(Flashcard)).toEqual('Add a flashcard for this tag!');
   });
 
   it('renders a flashcard when tag and non-empty flashcards', () => {
     const wrapper = shallow(
       <Flashcards
-        tag='foo'
+        tagId={42}
         flashcards={[{
           question: 'QQ',
           answer: 'AA'

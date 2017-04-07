@@ -5,6 +5,7 @@ import Sidebar from './Sidebar';
 import Flashcards from './Flashcards';
 import FlashcardDialog from './FlashcardDialog';
 import * as utils from './utils';
+import * as actions from './actions';
 import './Main.css';
 
 class Main extends Component {
@@ -17,15 +18,18 @@ class Main extends Component {
       selectedTagId: null,
       flashcards: null,
       selectedFlashcardIndex: null,
-      showDialog: false
+      flashcardInDialog: null
     };
 
     this.handleClickTag = this.handleClickTag.bind(this);
     this.handleClickPreviousFlashcard = this.handleClickPreviousFlashcard.bind(this);
     this.handleClickNextFlashcard = this.handleClickNextFlashcard.bind(this);
-    this.handleClickDelete = this.handleClickDelete.bind(this);
-    this.handleSaveFlashcardDialog = this.handleSaveFlashcardDialog.bind(this);
-    this.handleToggleFlashcardDialog = this.handleToggleFlashcardDialog.bind(this);
+    this.handleCancelFlashcardDialog = this.handleCancelFlashcardDialog.bind(this);
+    this.handleCreateFlashcard = this.handleCreateFlashcard.bind(this);
+    this.handleEditFlashcard = this.handleEditFlashcard.bind(this);
+    this.handleChangeFlashcard = this.handleChangeFlashcard.bind(this);
+    this.handleSaveFlashcard = this.handleSaveFlashcard.bind(this);
+    this.handleDeleteFlashcard = this.handleDeleteFlashcard.bind(this);
   }
 
   handleClickTag(tag) {
@@ -48,20 +52,45 @@ class Main extends Component {
     });
   }
 
-  handleClickDelete(flashcard) {
-    this.deleteFlashcard(flashcard);
+  handleCancelFlashcardDialog() {
+    this.setState({ flashcardInDialog: null });
   }
 
-  handleSaveFlashcardDialog(flashcard) {
-    this.createFlashcard(flashcard);
+  handleCreateFlashcard() {
+    const flashcard = {
+      question: '',
+      answer: '',
+      tags: []
+    };
+    this.setState({ flashcardInDialog: flashcard });
   }
 
-  handleToggleFlashcardDialog() {
+  handleEditFlashcard(flashcard) {
+    this.setState({ flashcardInDialog: flashcard });
+  }
+
+  handleChangeFlashcard(field, value) {
     this.setState(prevState => {
-      return {
-        showDialog: !prevState.showDialog
-      };
+      const { flashcardInDialog } = prevState;
+      const newFlashcardInDialog = Object.assign(
+        {},
+        flashcardInDialog,
+        { [field]: value }
+      );
+      return { flashcardInDialog: newFlashcardInDialog };
     });
+  }
+
+  handleSaveFlashcard(flashcard) {
+    if (flashcard.id) {
+      this.updateFlashcard(flashcard);
+    } else {
+      this.createFlashcard(flashcard);
+    }
+  }
+
+  handleDeleteFlashcard(flashcard) {
+    this.deleteFlashcard(flashcard);
   }
 
   componentDidMount() {
@@ -87,7 +116,7 @@ class Main extends Component {
       selectedTagId,
       flashcards,
       selectedFlashcardIndex,
-      showDialog
+      flashcardInDialog
     } = this.state;
 
     return (
@@ -106,22 +135,24 @@ class Main extends Component {
             selectedFlashcardIndex={selectedFlashcardIndex}
             onClickPreviousFlashcard={this.handleClickPreviousFlashcard}
             onClickNextFlashcard={this.handleClickNextFlashcard}
-            onClickDelete={this.handleClickDelete}
+            onClickEdit={this.handleEditFlashcard}
+            onClickDelete={this.handleDeleteFlashcard}
           />
           <div className='Main-button'>
             <Button
               icon='add'
               floating
               accent
-              onClick={this.handleToggleFlashcardDialog}
+              onClick={this.handleCreateFlashcard}
             />
           </div>
         </div>
         <FlashcardDialog
           tags={tags}
-          active={showDialog}
-          onSave={this.handleSaveFlashcardDialog}
-          onCancel={this.handleToggleFlashcardDialog}
+          flashcard={flashcardInDialog}
+          onChange={this.handleChangeFlashcard}
+          onSave={this.handleSaveFlashcard}
+          onCancel={this.handleCancelFlashcardDialog}
         />
       </div>
     );
@@ -151,45 +182,21 @@ class Main extends Component {
   createFlashcard(flashcard) {
     utils.createFlashcard({ token: this.props.token, flashcard })
       .then(flashcard => {
-        this.setState(prevState => {
-          const idComparator = (a, b) => (a.id === b.id);
-          // Add new tags to the current list of tags removing duplicates.
-          const newTags = utils.union(prevState.tags, flashcard.tags, idComparator);
-          // Add new flashcard to the current list of flashcards if it contains
-          // the current tag.
-          const newFlashcards = prevState.flashcards.concat(
-            utils.contains(flashcard.tags, {id: prevState.selectedTagId}, idComparator)
-              ? flashcard
-              : []
-          );
-          const newIndex = prevState.selectedFlashcardIndex || 0;
+        this.setState(actions.createFlashcard.bind(null, flashcard));
+      });
+  }
 
-          return {
-            showDialog: false,
-            tags: newTags,
-            flashcards: newFlashcards,
-            selectedFlashcardIndex: newIndex
-          };
-        });
+  updateFlashcard(flashcard) {
+    utils.updateFlashcard({ token: this.props.token, flashcard })
+      .then(flashcard => {
+        this.setState(actions.updateFlashcard.bind(null, flashcard));
       });
   }
 
   deleteFlashcard(flashcard) {
     utils.deleteFlashcard({ token: this.props.token, flashcard })
       .then(() => {
-        this.setState(prevState => {
-          const newFlashcards = prevState.flashcards.filter((f) => {
-            return f.id !== flashcard.id;
-          });
-          const newIndex = prevState.flashcards.length - 1 > 0
-            ? Math.max(0, prevState.selectedFlashcardIndex - 1)
-            : null;
-
-          return {
-            flashcards: newFlashcards,
-            selectedFlashcardIndex: newIndex
-          }
-        });
+        this.setState(actions.deleteFlashcard.bind(null, flashcard));
       });
   }
 }
