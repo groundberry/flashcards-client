@@ -80,6 +80,26 @@ export function createFlashcard(options) {
   });
 }
 
+export function updateFlashcard(options) {
+  const { token, flashcard } = options;
+  const url = `${baseApiUrl}/flashcards/${flashcard.id}?token=${token}`;
+
+  return fetch(url, {
+    method: 'PATCH',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ flashcard })
+  })
+  .then(response => {
+    return response.json();
+  })
+  .catch(error => {
+    console.log('Could not update flashcard', error);
+  });
+}
+
 export function deleteFlashcard(options) {
   const { token, flashcard } = options;
   const url = `${baseApiUrl}/flashcards/${flashcard.id}?token=${token}`;

@@ -6,7 +6,7 @@ import './Flashcards.css';
 
 class Flashcards extends Component {
   renderFlashcards() {
-    if (this.props.tag == null) {
+    if (this.props.tagId == null) {
       return 'Select a tag on the left!';
     }
 
@@ -20,35 +20,37 @@ class Flashcards extends Component {
 
     const {
       flashcards,
-      selectedFlashcard,
+      selectedFlashcardIndex,
       onClickPreviousFlashcard,
       onClickNextFlashcard,
+      onClickEdit,
       onClickDelete
     } = this.props;
 
-    const currentFlashcard = flashcards[selectedFlashcard];
+    const currentFlashcard = flashcards[selectedFlashcardIndex];
 
     return (
       <div className='Flashcards-content'>
         <div className='Flashcards-button'>
           <Button icon='keyboard_arrow_left' floating
-            disabled={selectedFlashcard === 0}
+            disabled={selectedFlashcardIndex === 0}
             onClick={onClickPreviousFlashcard}
           />
         </div>
         <Flashcard
           flashcard={currentFlashcard}
+          onClickEdit={onClickEdit}
           onClickDelete={onClickDelete}
         />
         <div className='Flashcards-button'>
           <Button icon='keyboard_arrow_right' floating
-            disabled={selectedFlashcard === flashcards.length - 1}
+            disabled={selectedFlashcardIndex === flashcards.length - 1}
             onClick={onClickNextFlashcard}
           />
         </div>
         <div className='Flashcards-index'>
           <Chip>
-            {selectedFlashcard + 1} / {flashcards.length}
+            {selectedFlashcardIndex + 1} / {flashcards.length}
           </Chip>
         </div>
       </div>

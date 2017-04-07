@@ -17,6 +17,7 @@ class Flashcard extends Component {
     };
 
     this.handleClickFlip = this.handleClickFlip.bind(this);
+    this.handleClickEdit = this.handleClickEdit.bind(this);
     this.handleClickDelete = this.handleClickDelete.bind(this);
   }
 
@@ -24,6 +25,10 @@ class Flashcard extends Component {
     this.setState(prevState => {
       return { showAnswer: !prevState.showAnswer };
     });
+  }
+
+  handleClickEdit() {
+    this.props.onClickEdit(this.props.flashcard);
   }
 
   handleClickDelete() {
@@ -56,6 +61,7 @@ class Flashcard extends Component {
             value='edit'
             icon='edit'
             caption='Edit'
+            onClick={this.handleClickEdit}
           />
           <MenuDivider />
           <MenuItem
