@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactMarkdown from 'react-markdown';
 import Card from 'react-toolbox/lib/card/Card';
 import CardText from 'react-toolbox/lib/card/CardText';
 import CardActions from 'react-toolbox/lib/card/CardActions';
@@ -74,10 +75,10 @@ class Flashcard extends Component {
         <CardText>
           {!showAnswer ?
             <div className='Flashcard-question'>
-              {flashcard.question}
+              <ReactMarkdown source={flashcard.question} skipHtml />
             </div> :
             <div className='Flashcard-answer'>
-              {flashcard.answer}
+              <ReactMarkdown source={flashcard.answer} skipHtml />
             </div>
           }
         </CardText>

@@ -13,6 +13,7 @@
     "react": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-markdown": "^2.4.6",
     "react-toolbox": "^2.0.0-beta.7"
   },
   "scripts": {
