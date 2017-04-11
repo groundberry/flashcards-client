@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactMarkdown from 'react-markdown';
 import Card from 'react-toolbox/lib/card/Card';
 import CardText from 'react-toolbox/lib/card/CardText';
 import CardActions from 'react-toolbox/lib/card/CardActions';
@@ -7,6 +6,7 @@ import Button from 'react-toolbox/lib/button/Button';
 import IconMenu from 'react-toolbox/lib/menu/IconMenu';
 import MenuItem from 'react-toolbox/lib/menu/MenuItem';
 import MenuDivider from 'react-toolbox/lib/menu/MenuDivider';
+import Markdown from './Markdown';
 import './Flashcard.css';
 
 class Flashcard extends Component {
@@ -75,10 +75,10 @@ class Flashcard extends Component {
         <CardText>
           {!showAnswer ?
             <div className='Flashcard-question'>
-              <ReactMarkdown source={flashcard.question} skipHtml />
+              <Markdown source={flashcard.question} />
             </div> :
             <div className='Flashcard-answer'>
-              <ReactMarkdown source={flashcard.answer} skipHtml />
+              <Markdown source={flashcard.answer} />
             </div>
           }
         </CardText>

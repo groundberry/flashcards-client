@@ -1,7 +1,11 @@
 .Flashcard-question,
 .Flashcard-answer {
-  font-size: 1.5em;
   min-height: 200px;
+}
+
+.Flashcard-question p,
+.Flashcard-answer p {
+  font-size: 18px;
 }
 
 .Flashcard-menu {
