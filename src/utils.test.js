@@ -71,4 +71,20 @@ describe('utils', () => {
       ]);
     });
   });
+
+  describe('sortObjects', () => {
+    it('returns a sorted array of objects', () => {
+      const arr = [{name: 'Foo'}, {name: 'Bar'}];
+      expect(utils.sortObjects(arr, 'name')).toEqual([
+        {name: 'Bar'},
+        {name: 'Foo'}
+      ]);
+    });
+
+    it('does not modify the original array', () => {
+      const arr = [{name: 'Foo'}, {name: 'Bar'}];
+      const sortedArr = utils.sortObjects(arr, 'name');
+      expect(sortedArr).not.toBe(arr);
+    });
+  });
 });

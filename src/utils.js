@@ -137,3 +137,17 @@ export function unique(arr, comparator) {
 export function union(arr1, arr2, comparator) {
   return unique(arr1.concat(arr2), comparator);
 }
+
+export function sortObjects(arr, key) {
+  return arr.slice().sort((a, b) => {
+    const valueA = a[key];
+    const valueB = b[key];
+    if (valueA < valueB) {
+      return -1;
+    }
+    if (valueA > valueB) {
+      return 1;
+    }
+    return 0;
+  });
+}

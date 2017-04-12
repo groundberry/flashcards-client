@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import List from 'react-toolbox/lib/list/List';
 import ListItem from 'react-toolbox/lib/list/ListItem';
 import ListSubHeader from 'react-toolbox/lib/list/ListSubHeader';
+import { sortObjects } from './utils';
 import './Tags.css';
 
 class Tags extends Component {
@@ -20,10 +21,12 @@ class Tags extends Component {
       );
     }
 
+    const sortedTags = sortObjects(tags, 'name');
+
     return (
       <List selectable ripple>
         <ListSubHeader caption='Tags' />
-        {tags.map((tag, index) =>
+        {sortedTags.map((tag, index) =>
           <ListItem
             key={index}
             caption={tag.name}
