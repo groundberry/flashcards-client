@@ -21,7 +21,7 @@ The goal of this app is helping users on their learning process. Since I graduat
 
 The client side of the app is built with [React](https://facebook.github.io/react/). I used [Create React App](https://github.com/facebookincubator/create-react-app) to get it started. For the styling of the UI I used [React Toolbox](http://react-toolbox.com/).
 
-For testing I used [Jest](https://github.com/facebook/jest), a framework that comes with Crate-React-App, and Enzyme to test the React components using its shallow and mount rendering.
+For testing I used [Jest](https://github.com/facebook/jest), and [Enzyme](http://airbnb.io/enzyme/) to test the React components using its shallow and mount rendering.
 
 You can find out more about the [server side](https://github.com/groundberry/flashcards-server).
 
